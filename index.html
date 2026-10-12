@@ -1,2 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KnowMe 💌</title>
 
-<!DOCTYPE html><html><head><title>KnowMe</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body {background: lavender;text-align: center;font-family: Arial;color: purple;}.card {background: white;padding: 20px;margin: 15px auto;border-radius: 15px;max-width: 400px;}input {padding: 10px;border-radius: 8px;border: 1px solid purple;}button {background: purple;color: white;padding: 12px 20px;border: none;border-radius: 10px;font-size: 16px;}.options {display: flex;flex-wrap: wrap;justify-content: center;gap: 8px;}.option {background: #f1e5ff;color: purple;padding: 12px;border: 2px solid #d8b5ff;border-radius: 10px;}.option.selected {background: #d8b5ff;}.question {padding: 12px;border-bottom: 1px solid #eee;}#quiz {display: none;}</style></head><body><h1>💌 KnowMe</h1><p><b>How Well Do You Know Me?</b></p><p>Create a quiz and challenge your friends! 💜</p><div class="card" id="home"><h2>Welcome! ✨</h2><p>Enter your name to begin</p><input id="name" type="text"placeholder="Enter your name"><br><br><button onclick="startQuiz()">Start My Quiz 💌</button><p id="message"></p></div><div class="card" id="quiz"><h2 id="welcome"></h2><p>Choose your favourite answer for each question! 💜</p><div id="questions"></div><button onclick="finishQuiz()">Save My Answers 💌</button><p id="result"></p></div><script>const quizData = [{question: "1. My favourite food?",options: ["🍕 Pizza", "🍔 Burger", "🍟 Fries", "🍦 Ice cream"]},{question: "2. My favourite colour?",options: ["💜 Purple", "💗 Pink", "💙 Blue", "🖤 Black"]},{question: "3. My favourite animal?",options: ["🐱 Cat", "🐶 Dog", "🐰 Rabbit", "🦋 Butterfly"]},{question: "4. My favourite drink?",options: ["🥤 Juice", "☕ Coffee", "🥛 Milk", "🍹 Lemonade"]},{question: "5. My dream destination?",options: ["🏖️ Beach", "🏔️ Mountains", "🗼 Paris", "🕋 Makkah"]},{question: "6. My favourite season?",options: ["🌧️ Rainy", "❄️ Winter", "☀️ Summer", "🌸 Spring"]},{question: "7. My favourite dessert?",options: ["🍰 Cake", "🍫 Chocolate", "🍩 Donut", "🍨 Ice cream"]},{question: "8. My favourite hobby?",options: ["🎨 Drawing", "🎵 Music", "📚 Reading", "🎮 Gaming"]},{question: "9. My dream job?",options: ["💻 Designer", "👩‍⚕️ Doctor", "👩‍🏫 Teacher", "🚀 Astronaut"]},{question: "10. My favourite flower?",options: ["🌹 Rose", "🌻 Sunflower", "🌷 Tulip", "🌼 Daisy"]}];function startQuiz() {let name = document.getElementById("name").value.trim();if (name === "") {document.getElementById("message").innerText ="Please enter your name! 💜";return;}document.getElementById("home").style.display = "none";document.getElementById("quiz").style.display = "block";document.getElementById("welcome").innerText =name + "'s KnowMe Quiz 💌";showQuestions();}let selectedAnswers = {};function showQuestions() {let area = document.getElementById("questions");quizData.forEach(function(item, index) {let section = document.createElement("div");section.className = "question";let heading = document.createElement("p");heading.innerText = item.question;section.appendChild(heading);let options = document.createElement("div");options.className = "options";item.options.forEach(function(option) {let btn = document.createElement("button");btn.className = "option";btn.innerText = option;btn.onclick = function() {selectedAnswers[index] = option;options.querySelectorAll("button").forEach(function(b) {b.classList.remove("selected");});btn.classList.add("selected");};options.appendChild(btn);});section.appendChild(options);area.appendChild(section);});}function finishQuiz() {if (Object.keys(selectedAnswers).length < 10) {document.getElementById("result").innerText ="Please answer all 10 questions! 💜";return;}document.getElementById("result").innerText ="All 10 answers selected! 💌 Your quiz is ready!";}</script></body></html>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px 12px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    text-align: center;
+    color: #75466f;
+    background: linear-gradient(135deg, #fff0f5, #eee5ff, #fff6e9);
+    min-height: 100vh;
+}
+
+.decor {
+    font-size: 25px;
+    margin: 8px;
+    animation: float 2s infinite alternate;
+}
+
+@keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-7px); }
+}
+
+h1 {
+    font-size: 38px;
+    color: #c45b91;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.character {
+    font-size: 75px;
+    margin: 12px;
+    filter: drop-shadow(0 5px 5px #e8bad5);
+}
+
+.card {
+    background: rgba(255,255,255,0.88);
+    max-width: 460px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 24px 18px;
+    border: 2px solid #f6c9df;
+    border-radius: 26px;
+    box-shadow: 0 8px 25px #d9b8d755;
+}
+
+h2 {
+    color: #a65391;
+}
+
+input {
+    width: 90%;
+    padding: 14px;
+    border: 2px solid #e9b8d8;
+    border-radius: 14px;
+    font-size: 16px;
+    outline: none;
+    margin: 10px 0;
+}
+
+input:focus {
+    border-color: #b56ac2;
+}
+
+button {
+    background: linear-gradient(135deg, #d978ad, #a979d5);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 13px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 6px;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.option {
+    background: #fff0f7;
+    color: #87527d;
+    border: 2px solid #f0c5df;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.option.selected {
+    background: #e5c8f5;
+    border-color: #a979d5;
+}
+
+.question {
+    text-align: left;
+    padding: 13px 0;
+    border-bottom: 1px dashed #ecc9e3;
+}
+
+#quiz {
+    display: none;
+}
+
+#message, #result {
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+footer {
+    font-size: 13px;
+    margin: 25px 0 10px;
+    color: #946e98;
+}
+</style>
+</head>
+
+<body>
+
+<div class="decor">💗 ✨ 💌 ✨ 💗</div>
+
+<h1>KnowMe 🎀</h1>
+
+<p class="subtitle">
+    A little quiz, a lot of memories! 💕<br>
+    Let's see who knows you best.
+</p>
+
+<div class="character">👧🏻 🐱</div>
+
+<div class="card" id="home">
+    <h2>Welcome, bestie! 💌</h2>
+    <p>What should we call you?</p>
+
+    <input id="name" type="text" placeholder="Enter your name...">
+
+    <br>
+
+    <button onclick="startQuiz()">Let's Play! 💖</button>
+
+    <p id="message"></p>
+</div>
+
+<div class="card" id="quiz">
+    <div class="decor">🌷 💕 🌷</div>
+
+    <h2 id="welcome"></h2>
+
+    <p>Choose one answer for every question! 🐰</p>
+
+    <div id="questions"></div>
+
+    <button onclick="finishQuiz()">Finish My Quiz 💌</button>
+
+    <p id="result"></p>
+</div>
+
+<footer>
+    Made with 💗, sparkles ✨ and a little magic 🎀
+</footer>
+
+<script>
+const quizData = [
+{
+    question: "1. What's my favourite food?",
+    options: ["🍕 Pizza", "🍔 Burger", "🍟 Fries", "🍦 Ice cream"]
+},
+{
+    question: "2. What's my favourite colour?",
+    options: ["💜 Purple", "💗 Pink", "💙 Blue", "🖤 Black"]
+},
+{
+    question: "3. Which animal do I love?",
+    options: ["🐱 Cat", "🐶 Dog", "🐰 Rabbit", "🦋 Butterfly"]
+},
+{
+    question: "4. What's my favourite drink?",
+    options: ["🥤 Juice", "☕ Coffee", "🥛 Milk", "🍹 Lemonade"]
+},
+{
+    question: "5. What's my dream destination?",
+    options: ["🏖️ Beach", "🏔️ Mountains", "🗼 Paris", "🕋 Makkah"]
+},
+{
+    question: "6. What's my favourite season?",
+    options: ["🌧️ Rainy", "❄️ Winter", "☀️ Summer", "🌸 Spring"]
+},
+{
+    question: "7. What's my favourite dessert?",
+    options: ["🍰 Cake", "🍫 Chocolate", "🍩 Donut", "🍨 Ice cream"]
+},
+{
+    question: "8. What's my favourite hobby?",
+    options: ["🎨 Drawing", "🎵 Music", "📚 Reading", "🎮 Gaming"]
+},
+{
+    question: "9. What's my dream job?",
+    options: ["💻 Designer", "👩‍⚕️ Doctor", "👩‍🏫 Teacher", "🚀 Astronaut"]
+},
+{
+    question: "10. What's my favourite flower?",
+    options: ["🌹 Rose", "🌻 Sunflower", "🌷 Tulip", "🌼 Daisy"]
+}
+];
+
+let selectedAnswers = {};
+
+function startQuiz() {
+    const name = document.getElementById("name").value.trim();
+
+    if (!name) {
+        document.getElementById("message").innerText =
+            "Please enter your name first! 💗";
+        return;
+    }
+
+    document.getElementById("home").style.display = "none";
+    document.getElementById("quiz").style.display = "block";
+
+    document.getElementById("welcome").innerText =
+        "How Well Do You Know " + name + "? 💌";
+
+    showQuestions();
+}
+
+function showQuestions() {
+    const area = document.getElementById("questions");
+    area.innerHTML = "";
+
+    quizData.forEach(function(item, index) {
+        const section = document.createElement("div");
+        section.className = "question";
+
+        const heading = document.createElement("p");
+        heading.innerText = item.question;
+        section.appendChild(heading);
+
+        const options = document.createElement("div");
+
+        item.options.forEach(function(option) {
+            const btn = document.createElement("button");
+            btn.className = "option";
+            btn.innerText = option;
+
+            btn.onclick = function() {
+                selectedAnswers[index] = option;
+
+                options.querySelectorAll("button").forEach(function(b) {
+                    b.classList.remove("selected");
+                });
+
+                btn.classList.add("selected");
+            };
+
+            options.appendChild(btn);
+        });
+
+        section.appendChild(options);
+        area.appendChild(section);
+    });
+}
+
+function finishQuiz() {
+    if (Object.keys(selectedAnswers).length < quizData.length) {
+        document.getElementById("result").innerText =
+            "Oops! Answer all 10 questions first. 💕";
+        return;
+    }
+
+    document.getElementById("result").innerText =
+        "Yay! All 10 answers are selected! 🎉 Your quiz draft is ready. 💌";
+}
+</script>
+
+</body>
+</html>
