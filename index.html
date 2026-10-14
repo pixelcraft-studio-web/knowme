@@ -235,7 +235,12 @@ function startQuiz() {
     document.getElementById("home").style.display = "none";
 document.getElementById("quiz").style.display = "block";
 
-    showQuestions();
+showQuestions();
+
+document.getElementById("quiz").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+});
 }
 
 function showQuestions() {
