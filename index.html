@@ -96,8 +96,70 @@ input[type="text"] {
     margin: 16px 0;
 }
 
+    
 input[type="text"]:focus {
     border-color: #bd78b8;
     box-shadow: 0 0 0 4px #f6e7f5;
 }
-    
+button {
+    background: linear-gradient(135deg, #dc79ad, #a77bd3);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 14px 22px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px 4px;
+    box-shadow: 0 5px 13px rgba(177, 109, 174, 0.22);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff7fb;
+    color: #76536f;
+    border: 2px solid #f0d6e7;
+    width: 100%;
+    margin: 9px 0;
+    padding: 13px 14px;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.6;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.option input[type="radio"] {
+    width: 19px;
+    height: 19px;
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: #bd69a8;
+}
+
+.option.selected {
+    background: #f4e5fb;
+    border-color: #b77acb;
+}
+
+.question {
+    text-align: left;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0dce9;
+}
+
+.question h3 {
+    color: #96568e;
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 5px 0 14px;
+}
