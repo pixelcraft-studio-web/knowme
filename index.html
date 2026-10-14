@@ -300,9 +300,33 @@ function startQuiz() {
 
     if (name === "") {
         alert("Please enter your name first! 💗");
+        
         return;
     }
 
     document.getElementById("home").style.display = "none";
     document.getElementById("quiz").style.display = "block";
     document.getElementById("welcome").textContent = "Hey " + name + "! 💖";
+    selectedAnswers = {};
+    document.getElementById("result").textContent = "";
+
+    showQuestions();
+
+    document.getElementById("quiz").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+function showQuestions() {
+    const container = document.getElementById("questions");
+    container.innerHTML = "";
+
+    quizData.forEach(function(item, index) {
+        const div = document.createElement("div");
+        div.className = "question";
+
+        const heading = document.createElement("h3");
+        heading.textContent = item.question;
+        div.appendChild(heading);
+        
