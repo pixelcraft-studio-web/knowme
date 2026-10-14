@@ -229,8 +229,8 @@ function startQuiz() {
         return;
     }
 
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("quiz").classList.remove("hidden");
+    document.getElementById("home").style.display = "none";
+document.getElementById("quiz").style.display = "block";
 
     showQuestions();
 }
