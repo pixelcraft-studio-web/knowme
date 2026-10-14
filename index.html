@@ -206,4 +206,57 @@ footer {
 </head>
 
 <body>
+    <div class="decor">💗 ✨ 💌 ✨ 💗</div>
+<h1>KnowMe 🎀</h1>
+
+<p class="subtitle">
+    A little quiz, a lot of memories! 💕<br>
+    Let's see who knows you best.
+</p>
+
+<div class="character">👧🏻 🐱</div>
+
+<div class="card" id="home">
+    <h2>Welcome, bestie! 💌</h2>
+    <p>Let's see how much you know me ☺️🌹</p>
+
+    <input id="name" type="text"
+        placeholder="Enter your name...">
+
+    <button type="button" onclick="startQuiz()">
+        Let's Play! 💖
+    </button>
+
+    <p id="message"></p>
+</div>
+    <div class="card" id="quiz">
+    <div class="decor">🌷 💕 🌷</div>
+
+    <h2 id="welcome"></h2>
+
+    <p>Choose one answer for every question! 🐰</p>
+
+    <div id="questions"></div>
+
+    <button type="button" onclick="finishQuiz()">
+        Finish My Quiz 💌
+    </button>
+
+    <p id="result"></p>
+</div>
+
+<footer>
+    Made with 💗, sparkles ✨ and a little magic 🎀
+</footer>
+
+<script>
+const quizData = [
+    {
+        question: "1. What's my favourite food?",
+        options: ["🍕 Pizza", "🍔 Burger", "🍟 Fries", "🍦 Ice cream"]
+    },
+    {
+        question: "2. What's my favourite colour?",
+        options: ["💜 Purple", "💗 Pink", "💙 Blue", "🖤 Black"]
+    },
     
