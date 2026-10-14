@@ -259,4 +259,50 @@ const quizData = [
         question: "2. What's my favourite colour?",
         options: ["💜 Purple", "💗 Pink", "💙 Blue", "🖤 Black"]
     },
-    
+        {
+        question: "3. Which animal do I love?",
+        options: ["🐱 Cat", "🐶 Dog", "🐰 Rabbit", "🦋 Butterfly"]
+    },
+    {
+        question: "4. What's my favourite subject?",
+        options: ["💻 Computer", "📚 English", "🔢 Maths", "🔬 Science"]
+    },
+    {
+        question: "5. What's my dream destination?",
+        options: ["🕋 Makkah", "🇹🇷 Turkey", "🇸🇦 Madina", "🇨🇭 Switzerland"]
+    },
+    {
+        question: "6. What's my favourite season?",
+        options: ["❄️ Winter", "🌧️ Rainy", "☀️ Summer", "🌸 Spring"]
+    },
+    {
+        question: "7. What's my favourite drink?",
+        options: ["🥤 Cold drink", "☕ Coffee", "🧋 Milkshake", "🍹 Juice"]
+    },
+        {
+        question: "8. What do I enjoy doing?",
+        options: ["💻 Coding", "🎨 Drawing", "🎮 Gaming", "📖 Reading"]
+    },
+    {
+        question: "9. What's my dream career?",
+        options: ["💻 Web Designer", "👩‍⚕️ Doctor", "👩‍🏫 Teacher", "✈️ Pilot"]
+    },
+    {
+        question: "10. What makes me happiest?",
+        options: ["👨‍👩‍👧‍👦 Family time", "🎁 Getting gifts", "🛍️ Shopping", "✈️ Travelling"]
+    }
+];
+
+let selectedAnswers = {};
+
+function startQuiz() {
+    const name = document.getElementById("name").value.trim();
+
+    if (name === "") {
+        alert("Please enter your name first! 💗");
+        return;
+    }
+
+    document.getElementById("home").style.display = "none";
+    document.getElementById("quiz").style.display = "block";
+    document.getElementById("welcome").textContent = "Hey " + name + "! 💖";
