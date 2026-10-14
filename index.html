@@ -329,4 +329,49 @@ function showQuestions() {
         const heading = document.createElement("h3");
         heading.textContent = item.question;
         div.appendChild(heading);
-        
+                item.options.forEach(function(option, optionIndex) {
+            const label = document.createElement("label");
+            label.className = "option";
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "question" + index;
+            radio.value = optionIndex;
+
+            radio.addEventListener("change", function() {
+                selectedAnswers[index] = optionIndex;
+
+                div.querySelectorAll(".option").forEach(function(opt) {
+                    opt.classList.remove("selected");
+                });
+
+                label.classList.add("selected");
+            });
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + option));
+            div.appendChild(label);
+        });
+
+        container.appendChild(div);
+    });
+}
+
+function finishQuiz() {
+    if (Object.keys(selectedAnswers).length !== quizData.length) {
+        alert("Please answer all 10 questions! 💕");
+        return;
+    }
+
+    document.getElementById("result").textContent =
+        "You completed all 10 questions! 💗 Thanks for playing KnowMe! 🎉";
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+</script>
+
+</body>
+</html>
