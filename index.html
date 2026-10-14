@@ -185,106 +185,105 @@ const quizData = [
 },
 {
     question: "3. Which animal do I love?",
-    options: ["🐱 Cat", "🐶 Dog", "🐰 Rabbit", "🦋 Butterfly"]
+        options: ["🐱 Cat", "🐶 Dog", "🐰 Rabbit", "🦋 Butterfly"]
 },
 {
-    question: "4. What's my favourite drink?",
-    options: ["🥤 Juice", "☕ Coffee", "🥛 Milk", "🍹 Lemonade"]
+    question: "4. What's my favourite subject?",
+    options: ["💻 Computer", "📚 English", "🔢 Maths", "🔬 Science"]
 },
 {
     question: "5. What's my dream destination?",
-    options: ["🏖️ Beach", "🏔️ Mountains", "🗼 Paris", "🕋 Makkah"]
+    options: ["🕋 Makkah", "🇹🇷 Turkey", "🇸🇦 Madina", "🇨🇭 Switzerland"]
 },
 {
     question: "6. What's my favourite season?",
-    options: ["🌧️ Rainy", "❄️ Winter", "☀️ Summer", "🌸 Spring"]
+    options: ["❄️ Winter", "🌧️ Rainy", "☀️ Summer", "🌸 Spring"]
 },
 {
-    question: "7. What's my favourite dessert?",
-    options: ["🍰 Cake", "🍫 Chocolate", "🍩 Donut", "🍨 Ice cream"]
+    question: "7. What's my favourite drink?",
+    options: ["☕ Coffee", "🥤 Cold drink", "🧃 Juice", "🥛 Milkshake"]
 },
 {
-    question: "8. What's my favourite hobby?",
-    options: ["🎨 Drawing", "🎵 Music", "📚 Reading", "🎮 Gaming"]
+    question: "8. What do I enjoy doing?",
+    options: ["🎬 Watching dramas", "🎮 Playing games", "📖 Reading", "🎨 Drawing"]
 },
 {
-    question: "9. What's my dream job?",
-    options: ["💻 Designer", "👩‍⚕️ Doctor", "👩‍🏫 Teacher", "🚀 Astronaut"]
+    question: "9. What's my dream career?",
+    options: ["💻 Web Designer", "👩‍🏫 Teacher", "👩‍⚕️ Doctor", "✈️ Pilot"]
 },
 {
-    question: "10. What's my favourite flower?",
-    options: ["🌹 Rose", "🌻 Sunflower", "🌷 Tulip", "🌼 Daisy"]
+    question: "10. What makes me happiest?",
+    options: ["👨‍👩‍👧‍👦 Family time", "🎁 Gifts", "🍫 Chocolates", "✈️ Travelling"]
 }
 ];
 
+let currentQuestion = 0;
+let score = 0;
 let selectedAnswers = {};
 
 function startQuiz() {
     const name = document.getElementById("name").value.trim();
 
     if (!name) {
-        document.getElementById("message").innerText =
-            "Please enter your name first! 💗";
+        alert("Please enter your name first! 💗");
         return;
     }
 
-    document.getElementById("home").style.display = "none";
-    document.getElementById("quiz").style.display = "block";
-
-    document.getElementById("welcome").innerText =
-        "How Well Do You Know " + name + "? 💌";
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
 
     showQuestions();
 }
 
 function showQuestions() {
-    const area = document.getElementById("questions");
-    area.innerHTML = "";
+    const container = document.getElementById("questions");
 
-    quizData.forEach(function(item, index) {
-        const section = document.createElement("div");
-        section.className = "question";
+    container.innerHTML = "";
 
-        const heading = document.createElement("p");
-        heading.innerText = item.question;
-        section.appendChild(heading);
+    quizData.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
 
-        const options = document.createElement("div");
+        const heading = document.createElement("h3");
+        heading.textContent = item.question;
+        div.appendChild(heading);
 
-        item.options.forEach(function(option) {
-            const btn = document.createElement("button");
-            btn.className = "option";
-            btn.innerText = option;
+        item.options.forEach((option, optionIndex) => {
+            const label = document.createElement("label");
+            label.className = "option";
 
-            btn.onclick = function() {
-                selectedAnswers[index] = option;
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "question" + index;
+            radio.value = optionIndex;
 
-                options.querySelectorAll("button").forEach(function(b) {
-                    b.classList.remove("selected");
-                });
+            radio.addEventListener("change", function () {
+                selectedAnswers[index] = optionIndex;
+            });
 
-                btn.classList.add("selected");
-            };
-
-            options.appendChild(btn);
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + option));
+            div.appendChild(label);
         });
 
-        section.appendChild(options);
-        area.appendChild(section);
+        container.appendChild(div);
     });
 }
 
 function finishQuiz() {
-    if (Object.keys(selectedAnswers).length < quizData.length) {
-        document.getElementById("result").innerText =
-            "Oops! Answer all 10 questions first. 💕";
+    const answered = Object.keys(selectedAnswers).length;
+
+    if (answered !== quizData.length) {
+        alert("Please answer all 10 questions! 💕");
         return;
     }
 
-    document.getElementById("result").innerText =
-        "Yay! All 10 answers are selected! 🎉 Your quiz draft is ready. 💌";
-}
-</script>
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
 
-</body>
-</html>
+    document.getElementById("score").textContent =
+        "You answered all " + answered + " questions! 💗";
+
+    document.getElementById("message").textContent =
+        "Thanks for playing KnowMe! 🎉";
+}
