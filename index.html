@@ -374,7 +374,11 @@ function showQuestions() {
         container.appendChild(div);
     });
 }
-
+function showCreateQuiz() {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("createQuiz").style.display = "block";
+}
 function finishQuiz() {
     if (Object.keys(selectedAnswers).length !== quizData.length) {
         alert("Please answer all 10 questions! 💕");
