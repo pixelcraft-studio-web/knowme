@@ -379,6 +379,24 @@ function showCreateQuiz() {
     document.getElementById("quiz").style.display = "none";
     document.getElementById("createQuiz").style.display = "block";
 }
+    function saveQuiz() {
+    const creator = document.getElementById("creatorName").value.trim();
+    const title = document.getElementById("quizTitle").value.trim();
+
+    if (!creator || !title) {
+        alert("Please enter your name and quiz title! 💗");
+        return;
+    }
+
+    document.getElementById("createQuiz").innerHTML = `
+        <h2>${title}</h2>
+        <p>Created by ${creator} 🎀</p>
+        <p>Your quiz setup has started! 💕</p>
+        <button type="button" onclick="location.reload()">
+            Back to Home
+        </button>
+    `;
+    }
 function finishQuiz() {
     if (Object.keys(selectedAnswers).length !== quizData.length) {
         alert("Please answer all 10 questions! 💕");
