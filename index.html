@@ -371,10 +371,104 @@ function showQuestions() {
         container.appendChild(div);
     });
 }
-function showCreateQuiz() {
+    function showCreateQuiz() {
     document.getElementById("home").style.display = "none";
     document.getElementById("quiz").style.display = "none";
     document.getElementById("createQuiz").style.display = "block";
+}
+
+let customQuizAnswers = {};
+let creatorName = "";
+
+function saveQuiz() {
+    const creator = document.getElementById("creatorName").value.trim();
+
+    if (!creator) {
+        alert("Please enter your name! 💗");
+        return;
+    }
+
+    creatorName = creator;
+    customQuizAnswers = {};
+
+    const box = document.getElementById("createQuiz");
+
+    box.innerHTML = `
+        <h2>Choose Your Correct Answers 💗</h2>
+        <p>Created by ${escapeHTML(creatorName)} 🎀</p>
+        <p>Select one correct answer for every question.</p>
+        <div id="creatorQuestions"></div>
+        <button type="button" onclick="saveMyQuiz()">
+            Save My Quiz 💌
+        </button>
+        <p id="creatorMessage"></p>
+    `;
+
+    const container = document.getElementById("creatorQuestions");
+
+    quizData.forEach(function(item, index) {
+        const questionBox = document.createElement("div");
+        questionBox.className = "question";
+
+        const heading = document.createElement("h3");
+        heading.textContent = item.question;
+        questionBox.appendChild(heading);
+
+        item.options.forEach(function(option, optionIndex) {
+            const label = document.createElement("label");
+            label.className = "option";
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "correct" + index;
+            radio.value = optionIndex;
+
+            radio.addEventListener("change", function() {
+                customQuizAnswers[index] = optionIndex;
+
+                questionBox.querySelectorAll(".option").forEach(function(opt) {
+                    opt.classList.remove("selected");
+                });
+
+                label.classList.add("selected");
+            });
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + option));
+
+            questionBox.appendChild(label);
+        });
+
+        container.appendChild(questionBox);
+    });
+}
+
+function escapeHTML(value) {
+    const div = document.createElement("div");
+    div.textContent = value;
+    return div.innerHTML;
+}
+
+function saveMyQuiz() {
+    if (Object.keys(customQuizAnswers).length !== quizData.length) {
+        alert("Please choose a correct answer for all 10 questions! 💗");
+        return;
+    }
+
+    const myQuiz = {
+        creator: creatorName,
+        questions: quizData,
+        answers: customQuizAnswers
+    };
+
+    try {
+        localStorage.setItem("myKnowMeQuiz", JSON.stringify(myQuiz));
+
+        document.getElementById("creatorMessage").textContent =
+            "Your quiz has been saved on this device! 💗";
+    } catch (error) {
+        alert("Could not save the quiz. Please try again.");
+    }
 }
     function saveQuiz() {
     const creator = document.getElementById("creatorName").value.trim();
