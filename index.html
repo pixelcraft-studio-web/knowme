@@ -470,29 +470,7 @@ function saveMyQuiz() {
         alert("Could not save the quiz. Please try again.");
     }
 }
-    function saveQuiz() {
-    const creator = document.getElementById("creatorName").value.trim();
-
-if (!creator) {
-        alert("Please enter your name! 💗");
-        return;
-    }
-
-    document.getElementById("createQuiz").innerHTML = `
-        <h2>Add Your Questions 💗</h2>
-        <p>Created by ${creator} 🎀</p>
-
-        <input type="text" id="customQuestion" placeholder="Enter your question">
-        <input type="text" id="option1" placeholder="Option 1">
-        <input type="text" id="option2" placeholder="Option 2">
-        <input type="text" id="option3" placeholder="Option 3">
-        <input type="text" id="option4" placeholder="Option 4">
-
-        <button type="button" onclick="addQuestion()">Add Question ➕</button>
-
-        <div id="addedQuestions"></div>
-    `;
-    }
+    
     let customQuestions = [];
 
 function addQuestion() {
