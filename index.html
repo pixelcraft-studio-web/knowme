@@ -471,74 +471,7 @@ function saveMyQuiz() {
     }
 }
     
-    let customQuestions = [];
-
-function addQuestion() {
-    const question = document.getElementById("customQuestion").value.trim();
-    const options = [
-        document.getElementById("option1").value.trim(),
-        document.getElementById("option2").value.trim(),
-        document.getElementById("option3").value.trim(),
-        document.getElementById("option4").value.trim()
-    ];
-
-    if (!question || options.some(option => option === "")) {
-        alert("Please fill in the question and all 4 options! 💗");
-        return;
-    }
-
-    const box = document.createElement("div");
-    box.className = "question";
-
-    const heading = document.createElement("h3");
-    heading.textContent = question;
-    box.appendChild(heading);
-
-    options.forEach((option, index) => {
-        const label = document.createElement("label");
-        label.className = "option";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "correctAnswer" + customQuestions.length;
-        radio.value = index;
-
-        label.appendChild(radio);
-        label.appendChild(document.createTextNode(" " + option));
-        box.appendChild(label);
-    });
-
-    const saveButton = document.createElement("button");
-    saveButton.type = "button";
-    saveButton.textContent = "Save Question 💾";
-
-    saveButton.onclick = function() {
-        const selected = box.querySelector('input[type="radio"]:checked');
-
-        if (!selected) {
-            alert("Please select the correct answer! 💕");
-            return;
-        }
-
-        customQuestions.push({
-            question: question,
-            options: options,
-            correctAnswer: Number(selected.value)
-        });
-
-        heading.textContent = "✅ " + question + " (Saved)";
-        saveButton.remove();
-        alert("Question saved! 💗");
-    };
-
-    box.appendChild(saveButton);
-    document.getElementById("addedQuestions").appendChild(box);
-
-    document.getElementById("customQuestion").value = "";
-    options.forEach((_, index) => {
-        document.getElementById("option" + (index + 1)).value = "";
-    });
-}
+    
 function finishQuiz() {
     if (Object.keys(selectedAnswers).length !== quizData.length) {
         alert("Please answer all 10 questions! 💕");
