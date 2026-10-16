@@ -4,489 +4,140 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KnowMe 💌</title>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 15px;
-}
-
-body {
-    margin: 0;
-    padding: 24px 14px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    text-align: center;
-    color: #704768;
-    background: linear-gradient(
-        135deg,
-        #fff0f6,
-        #f0e8ff,
-        #fff7ed
-    );
-    min-height: 100vh;
-}
-.decor {
-    font-size: 25px;
-    margin: 12px 0;
-    animation: float 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes float {
-    from { transform: translateY(0); }
-    to { transform: translateY(-5px); }
-}
-
-h1 {
-    font-size: clamp(34px, 8vw, 46px);
-    color: #c0528c;
-    margin: 12px 0;
-    letter-spacing: 1px;
-}
-
-.subtitle {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #896a88;
-    margin: 12px auto;
-}
-
-.character {
-    font-size: 68px;
-    margin: 18px 0;
-    filter: drop-shadow(0 5px 6px #e8bad5);
-}
-
-.card {
-    background: rgba(255, 255, 255, 0.94);
-    max-width: 480px;
-    width: 100%;
-    margin: 22px auto;
-    padding: 26px 20px;
-    border: 1px solid #f2c8df;
-    border-radius: 26px;
-    box-shadow: 0 12px 35px rgba(171, 112, 158, 0.14);
-}
-
-h2 {
-    color: #a65391;
-    font-size: 24px;
-    line-height: 1.5;
-    margin: 8px 0 14px;
-}
-
-p {
-    line-height: 1.8;
-}
-
-input[type="text"] {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    border: 2px solid #efd1e5;
-    border-radius: 14px;
-    font-size: 16px;
-    font-family: inherit;
-    color: #694563;
-    background: #fffafd;
-    outline: none;
-    margin: 16px 0;
-}
-
-    
-input[type="text"]:focus {
-    border-color: #bd78b8;
-    box-shadow: 0 0 0 4px #f6e7f5;
-}
-button {
-    background: linear-gradient(135deg, #dc79ad, #a77bd3);
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 14px 22px;
-    font-size: 16px;
-    font-family: inherit;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 10px 4px;
-    box-shadow: 0 5px 13px rgba(177, 109, 174, 0.22);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-button:active {
-    transform: scale(0.97);
-}
-
-.option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #fff7fb;
-    color: #76536f;
-    border: 2px solid #f0d6e7;
-    width: 100%;
-    margin: 9px 0;
-    padding: 13px 14px;
-    border-radius: 15px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 16px;
-    line-height: 1.6;
-    transition: background 0.2s, border-color 0.2s;
-}
-
-.option input[type="radio"] {
-    width: 19px;
-    height: 19px;
-    margin: 0;
-    flex-shrink: 0;
-    accent-color: #bd69a8;
-}
-
-.option.selected {
-    background: #f4e5fb;
-    border-color: #b77acb;
-}
-
-.question {
-    text-align: left;
-    padding: 16px 0;
-    border-bottom: 1px solid #f0dce9;
-}
-
-.question h3 {
-    color: #96568e;
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 5px 0 14px;
-}
-    #quiz {
-    display: none;
-    scroll-margin-top: 12px;
-}
-
-#message,
-#result {
-    font-weight: bold;
-    line-height: 1.8;
-    color: #a65391;
-    overflow-wrap: anywhere;
-}
-
-footer {
-    font-size: 13px;
-    line-height: 1.8;
-    margin: 28px 0 12px;
-    color: #946e98;
-}
-
-@media (max-width: 380px) {
-    body {
-        padding: 16px 10px;
-    }
-
-    .card {
-        padding: 22px 15px;
-        border-radius: 22px;
-    }
-
-    .option {
-        padding: 12px 10px;
-        font-size: 15px;
-    }
-
-    h2 {
-        font-size: 21px;
-    }
-}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:15px}body{margin:0;padding:24px 14px;font-family:"Trebuchet MS",Arial,sans-serif;text-align:center;color:#704768;background:linear-gradient(135deg,#fff0f6,#f0e8ff,#fff7ed);min-height:100vh}.decor{font-size:25px;margin:12px 0;animation:float 2.5s ease-in-out infinite alternate}@keyframes float{from{transform:translateY(0)}to{transform:translateY(-5px)}}h1{font-size:clamp(34px,8vw,46px);color:#c0528c;margin:12px 0;letter-spacing:1px}.subtitle{font-size:16px;line-height:1.8;color:#896a88;margin:12px auto}.character{font-size:68px;margin:18px 0;filter:drop-shadow(0 5px 6px #e8bad5)}.card{background:rgba(255,255,255,.94);max-width:480px;width:100%;margin:22px auto;padding:26px 20px;border:1px solid #f2c8df;border-radius:26px;box-shadow:0 12px 35px rgba(171,112,158,.14)}h2{color:#a65391;font-size:24px;line-height:1.5;margin:8px 0 14px}p{line-height:1.8}input[type=text]{display:block;width:100%;padding:15px;border:2px solid #efd1e5;border-radius:14px;font-size:16px;font-family:inherit;color:#694563;background:#fffafd;outline:none;margin:16px 0}input[type=text]:focus{border-color:#bd78b8;box-shadow:0 0 0 4px #f6e7f5}button{background:linear-gradient(135deg,#dc79ad,#a77bd3);color:white;border:none;border-radius:15px;padding:14px 22px;font-size:16px;font-family:inherit;font-weight:bold;cursor:pointer;margin:10px 4px;box-shadow:0 5px 13px rgba(177,109,174,.22)}button:disabled{opacity:.6;cursor:wait}.option{display:flex;align-items:center;gap:12px;background:#fff7fb;color:#76536f;border:2px solid #f0d6e7;width:100%;margin:9px 0;padding:13px 14px;border-radius:15px;cursor:pointer;text-align:left;font-size:16px;line-height:1.6}.option input{width:19px;height:19px;margin:0;flex-shrink:0;accent-color:#bd69a8}.option.selected{background:#f4e5fb;border-color:#b77acb}.question{text-align:left;padding:16px 0;border-bottom:1px solid #f0dce9}.question h3{color:#96568e;font-size:17px;line-height:1.7;margin:5px 0 14px}#quiz,#createQuiz,#resultsCard{display:none;scroll-margin-top:12px}#message,#result,#creatorMessage{font-weight:bold;line-height:1.8;color:#a65391;overflow-wrap:anywhere}.sharebox{background:#fff7fb;border:1px dashed #d99bc5;padding:12px;border-radius:12px;overflow-wrap:anywhere}footer{font-size:13px;line-height:1.8;margin:28px 0 12px;color:#946e98}@media(max-width:380px){body{padding:16px 10px}.card{padding:22px 15px;border-radius:22px}.option{padding:12px 10px;font-size:15px}h2{font-size:21px}}
 </style>
 </head>
-
 <body>
-    <div class="decor">💗 ✨ 💌 ✨ 💗</div>
-<h1>KnowMe 🎀</h1>
-
-<p class="subtitle">
-    A little quiz, a lot of memories! 💕<br>
-    Let's see who knows you best.
-</p>
-
+<div class="decor">💗 ✨ 💌 ✨ 💗</div><h1>KnowMe 🎀</h1>
+<p class="subtitle">A little quiz, a lot of memories! 💕<br>Let's see who knows you best.</p>
 <div class="character">👧🏻 🐱</div>
-
 <div class="card" id="home">
-    
-    <h2>Welcome, bestie! 💌</h2>
-    <button type="button" onclick="showCreateQuiz()">
-    ➕ Create My Own Quiz
-    </button>
-    <p>Let's see how much you know me ☺️🌹</p>
-
-    <input id="name" type="text"
-        placeholder="Enter your name...">
-
-    <button type="button" onclick="startQuiz()">
-        Let's Play! 💖
-    </button>
-
-    <p id="message"></p>
+<h2 id="homeHeading">Welcome, bestie! 💌</h2>
+<button type="button" onclick="showCreateQuiz()">➕ Create My Own Quiz</button>
+<p id="homePrompt">Let's see how much you know me ☺️🌹</p>
+<input id="name" type="text" placeholder="Enter your name...">
+<button type="button" onclick="startQuiz()">Let's Play! 💖</button>
+<p id="message"></p>
 </div>
-    <div class="card" id="createQuiz" style="display:none;">
-    <h2>Create Your Own Quiz 🎀</h2>
-
-    <input type="text" id="creatorName"
-        placeholder="Your name">
-
-    <button type="button" onclick="saveQuiz()">
-        Create My Quiz 💗
-    </button>
-    </div>
-    
-    <div class="card" id="quiz">
-    <div class="decor">🌷 💕 🌷</div>
-
-    <h2 id="welcome"></h2>
-
-    <p>Choose one answer for every question! 🐰</p>
-
-    <div id="questions"></div>
-
-    <button type="button" onclick="finishQuiz()">
-        Finish My Quiz 💌
-    </button>
-
-    <p id="result"></p>
+<div class="card" id="createQuiz">
+<h2>Create Your Own Quiz 🎀</h2>
+<input id="creatorName" type="text" placeholder="Your name">
+<input id="quizTitle" type="text" placeholder="Quiz title (e.g. How well do you know me?)">
+<button type="button" onclick="buildCreatorQuiz()">Choose Correct Answers 💗</button>
+<div id="creatorQuestions"></div><button id="saveQuizButton" type="button" onclick="saveMyQuiz()" style="display:none">Save & Get My Link 💌</button>
+<p id="creatorMessage"></p>
 </div>
-
-<footer>
-    Made with 💗, sparkles ✨ and a little magic 🎀
-</footer>
-
+<div class="card" id="quiz">
+<div class="decor">🌷 💕 🌷</div><h2 id="welcome"></h2><p>Choose one answer for every question! 🐰</p>
+<div id="questions"></div><button type="button" id="finishButton" onclick="finishQuiz()">Finish My Quiz 💌</button><p id="result"></p>
+</div>
+<div class="card" id="resultsCard"><h2>Quiz Results 🏆</h2><p id="resultsIntro"></p><div id="resultsList"></div></div>
+<footer>Made with 💗, sparkles ✨ and a little magic 🎀</footer>
 <script>
-const quizData = [
-    {
-        question: "1. What's my favourite food?",
-        options: ["🍕 Pizza", "🍔 Burger", "🍟 Fries", "🍦 Ice cream"]
-    },
-    {
-        question: "2. What's my favourite colour?",
-        options: ["💜 Purple", "💗 Pink", "💙 Blue", "🖤 Black"]
-    },
-        {
-        question: "3. Which animal do I love?",
-        options: ["🐱 Cat", "🐶 Dog", "🐰 Rabbit", "🦋 Butterfly"]
-    },
-    {
-        question: "4. What's my favourite subject?",
-        options: ["💻 Computer", "📚 English", "🔢 Maths", "🔬 Science"]
-    },
-    {
-        question: "5. What's my dream destination?",
-        options: ["🕋 Makkah", "🇹🇷 Turkey", "🇸🇦 Madina", "🇨🇭 Switzerland"]
-    },
-    {
-        question: "6. What's my favourite season?",
-        options: ["❄️ Winter", "🌧️ Rainy", "☀️ Summer", "🌸 Spring"]
-    },
-    {
-        question: "7. What's my favourite drink?",
-        options: ["🥤 Cold drink", "☕ Coffee", "🧋 Milkshake", "🍹 Juice"]
-    },
-        {
-        question: "8. What do I enjoy doing?",
-        options: ["💻 Coding", "🎨 Drawing", "🎮 Gaming", "📖 Reading"]
-    },
-    {
-        question: "9. What's my dream career?",
-        options: ["💻 Web Designer", "👩‍⚕️ Doctor", "👩‍🏫 Teacher", "✈️ Pilot"]
-    },
-    {
-        question: "10. What makes me happiest?",
-        options: ["👨‍👩‍👧‍👦 Family time", "🎁 Getting gifts", "🛍️ Shopping", "✈️ Travelling"]
-    }
+/* Add your Supabase Project URL and publishable key below. Never use a secret/service_role key here. */
+const SUPABASE_URL = 
+const SUPABASE_PUBLISHABLE_KEY =  sb_publishable_jTAuYWzM78pchVACXRy3UA_AVEyakeG
+const dbReady = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_PUBLISHABLE_KEY.includes("PASTE_");
+const db = dbReady ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY) : null;
+
+const defaultQuestions = [
+{question:"What's my favourite food?",options:["🍕 Pizza","🍔 Burger","🍟 Fries","🍦 Ice cream"]},
+{question:"What's my favourite colour?",options:["💜 Purple","💗 Pink","💙 Blue","🖤 Black"]},
+{question:"Which animal do I love?",options:["🐱 Cat","🐶 Dog","🐰 Rabbit","🦋 Butterfly"]},
+{question:"What's my favourite subject?",options:["💻 Computer","📚 English","🔢 Maths","🔬 Science"]},
+{question:"What's my dream destination?",options:["🕋 Makkah","🇹🇷 Turkey","🇸🇦 Madina","🇨🇭 Switzerland"]},
+{question:"What's my favourite season?",options:["❄️ Winter","🌧️ Rainy","☀️ Summer","🌸 Spring"]},
+{question:"What's my favourite drink?",options:["🥤 Cold drink","☕ Coffee","🧋 Milkshake","🍹 Juice"]},
+{question:"What do I enjoy doing?",options:["💻 Coding","🎨 Drawing","🎮 Gaming","📖 Reading"]},
+{question:"What's my dream career?",options:["💻 Web Designer","👩‍⚕️ Doctor","👩‍🏫 Teacher","✈️ Pilot"]},
+{question:"What makes me happiest?",options:["👨‍👩‍👧‍👦 Family time","🎁 Getting gifts","🛍️ Shopping","✈️ Travelling"]}
 ];
-
+let quizData = defaultQuestions;
+let correctAnswers = {};
 let selectedAnswers = {};
-
-function startQuiz() {
-    const name = document.getElementById("name").value.trim();
-
-    if (name === "") {
-        alert("Please enter your name first! 💗");
-        
-        return;
-    }
-
-    document.getElementById("home").style.display = "none";
-    document.getElementById("quiz").style.display = "block";
-    document.getElementById("welcome").textContent = "Hey " + name + "! 💖";
-    selectedAnswers = {};
-    document.getElementById("result").textContent = "";
-
-    showQuestions();
-
-    document.getElementById("quiz").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-}
-
-function showQuestions() {
-    const container = document.getElementById("questions");
-    container.innerHTML = "";
-
-    quizData.forEach(function(item, index) {
-        const div = document.createElement("div");
-        div.className = "question";
-
-        const heading = document.createElement("h3");
-        heading.textContent = item.question;
-        div.appendChild(heading);
-                item.options.forEach(function(option, optionIndex) {
-            const label = document.createElement("label");
-            label.className = "option";
-
-            const radio = document.createElement("input");
-            radio.type = "radio";
-            radio.name = "question" + index;
-            radio.value = optionIndex;
-
-            radio.addEventListener("change", function() {
-                selectedAnswers[index] = optionIndex;
-
-                div.querySelectorAll(".option").forEach(function(opt) {
-                    opt.classList.remove("selected");
-                });
-
-                label.classList.add("selected");
-            });
-
-            label.appendChild(radio);
-            label.appendChild(document.createTextNode(" " + option));
-            div.appendChild(label);
-        });
-
-        container.appendChild(div);
-    });
-}
-    function showCreateQuiz() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("quiz").style.display = "none";
-    document.getElementById("createQuiz").style.display = "block";
-}
-
-let customQuizAnswers = {};
 let creatorName = "";
+let activeQuiz = null;
+let activeQuizId = null;
+let shareCode = null;
 
-function saveQuiz() {
-    const creator = document.getElementById("creatorName").value.trim();
-
-    if (!creator) {
-        alert("Please enter your name! 💗");
-        return;
-    }
-
-    creatorName = creator;
-    customQuizAnswers = {};
-
-    const box = document.getElementById("createQuiz");
-
-    box.innerHTML = `
-        <h2>Choose Your Correct Answers 💗</h2>
-        <p>Created by ${escapeHTML(creatorName)} 🎀</p>
-        <p>Select one correct answer for every question.</p>
-        <div id="creatorQuestions"></div>
-        <button type="button" onclick="saveMyQuiz()">
-            Save My Quiz 💌
-        </button>
-        <p id="creatorMessage"></p>
-    `;
-
-    const container = document.getElementById("creatorQuestions");
-
-    quizData.forEach(function(item, index) {
-        const questionBox = document.createElement("div");
-        questionBox.className = "question";
-
-        const heading = document.createElement("h3");
-        heading.textContent = item.question;
-        questionBox.appendChild(heading);
-
-        item.options.forEach(function(option, optionIndex) {
-            const label = document.createElement("label");
-            label.className = "option";
-
-            const radio = document.createElement("input");
-            radio.type = "radio";
-            radio.name = "correct" + index;
-            radio.value = optionIndex;
-
-            radio.addEventListener("change", function() {
-                customQuizAnswers[index] = optionIndex;
-
-                questionBox.querySelectorAll(".option").forEach(function(opt) {
-                    opt.classList.remove("selected");
-                });
-
-                label.classList.add("selected");
-            });
-
-            label.appendChild(radio);
-            label.appendChild(document.createTextNode(" " + option));
-
-            questionBox.appendChild(label);
-        });
-
-        container.appendChild(questionBox);
-    });
+function setCard(id){["home","createQuiz","quiz","resultsCard"].forEach(x=>document.getElementById(x).style.display=x===id?"block":"none");}
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function showCreateQuiz(){if(!db){alert("First add your Supabase Project URL and publishable key in the code.");return;}creatorName="";correctAnswers={};document.getElementById("creatorName").value="";document.getElementById("quizTitle").value="";document.getElementById("creatorQuestions").innerHTML="";document.getElementById("saveQuizButton").style.display="none";document.getElementById("creatorMessage").textContent="";setCard("createQuiz");}
+function buildCreatorQuiz(){
+ creatorName=document.getElementById("creatorName").value.trim();
+ if(!creatorName){alert("Please enter your name! 💗");return;}
+ if(!document.getElementById("quizTitle").value.trim())document.getElementById("quizTitle").value="How well do you know "+creatorName+"?";
+ correctAnswers={};const container=document.getElementById("creatorQuestions");container.innerHTML="<p>Choose one correct answer for each question.</p>";
+ quizData=defaultQuestions.map(q=>({question:q.question,options:[...q.options]}));
+ quizData.forEach((item,i)=>{const box=document.createElement("div");box.className="question";const h=document.createElement("h3");h.textContent=(i+1)+". "+item.question;box.appendChild(h);item.options.forEach((op,j)=>{const label=document.createElement("label");label.className="option";const r=document.createElement("input");r.type="radio";r.name="correct"+i;r.value=j;r.addEventListener("change",()=>{correctAnswers[i]=j;box.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));label.classList.add("selected");});label.append(r,document.createTextNode(" "+op));box.appendChild(label);});container.appendChild(box);});
+ document.getElementById("saveQuizButton").style.display="inline-block";document.getElementById("creatorMessage").textContent="";
 }
-
-function escapeHTML(value) {
-    const div = document.createElement("div");
-    div.textContent = value;
-    return div.innerHTML;
+async function saveMyQuiz(){
+ if(!db){alert("Supabase connection details are missing in the code.");return;}
+ if(Object.keys(correctAnswers).length!==quizData.length){alert("Please choose a correct answer for all 10 questions! 💗");return;}
+ const btn=document.getElementById("saveQuizButton");btn.disabled=true;document.getElementById("creatorMessage").textContent="Saving your quiz online…";
+ try{
+  const code=crypto.randomUUID().replaceAll("-","").slice(0,12);
+  const title=document.getElementById("quizTitle").value.trim()||("How well do you know "+creatorName+"?");
+  const {data:quiz,error:qErr}=await db.from("quizzes").insert({creator_name:creatorName,title:title,share_code:code}).select("id,creator_name,title,share_code").single();
+  if(qErr)throw qErr;
+  const rows=quizData.map((q,i)=>({quiz_id:quiz.id,question_text:q.question,options:q.options,correct_answer:Number(correctAnswers[i]),question_order:i+1}));
+  const {error:questionError}=await db.from("quiz_questions").insert(rows);
+  if(questionError){await db.from("quizzes").delete().eq("id",quiz.id);throw questionError;}
+  const link=location.origin+location.pathname+"?quiz="+encodeURIComponent(code);
+  document.getElementById("creatorMessage").innerHTML="Your quiz is online! 💗<div class='sharebox' id='shareLink'></div><button type='button' onclick='copyShareLink()'>Copy Quiz Link 🔗</button><button type='button' onclick='openResults()'>View Scores 🏆</button>";
+  document.getElementById("shareLink").textContent=link;
+  activeQuizId=quiz.id;shareCode=code;activeQuiz=quiz;
+ }catch(e){console.error(e);document.getElementById("creatorMessage").textContent="Could not save. Check Supabase tables/policies. Details: "+(e.message||"Unknown error");}
+ finally{btn.disabled=false;}
 }
-
-function saveMyQuiz() {
-    if (Object.keys(customQuizAnswers).length !== quizData.length) {
-        alert("Please choose a correct answer for all 10 questions! 💗");
-        return;
-    }
-
-    const myQuiz = {
-        creator: creatorName,
-        questions: quizData,
-        answers: customQuizAnswers
-    };
-
-    try {
-        localStorage.setItem("myKnowMeQuiz", JSON.stringify(myQuiz));
-
-        document.getElementById("creatorMessage").textContent =
-            "Your quiz has been saved on this device! 💗";
-    } catch (error) {
-        alert("Could not save the quiz. Please try again.");
-    }
+async function copyShareLink(){const el=document.getElementById("shareLink");try{await navigator.clipboard.writeText(el.textContent);alert("Link copied! Send it to your friend 💗");}catch{prompt("Copy this quiz link:",el.textContent);}}
+async function loadSharedQuiz(code){
+ if(!db){document.getElementById("message").textContent="Supabase connection is not configured yet.";return;}
+ try{
+  const {data:quiz,error}=await db.from("quizzes").select("id,creator_name,title,share_code").eq("share_code",code).single();if(error)throw error;
+  const {data:questions,error:qe}=await db.from("quiz_questions").select("question_text,options,question_order").eq("quiz_id",quiz.id).order("question_order");if(qe)throw qe;
+  if(!questions||questions.length===0)throw new Error("This quiz has no questions.");
+  activeQuiz=quiz;activeQuizId=quiz.id;quizData=questions.map((q,i)=>({question:q.question_text,options:q.options}));correctAnswers={};selectedAnswers={};
+  document.getElementById("homeHeading").textContent="Let's see how much you know "+quiz.creator_name+"! 💌";
+  document.getElementById("homePrompt").textContent=quiz.title;
+  document.querySelector("#home button").style.display="none";
+  setCard("home");
+ }catch(e){console.error(e);document.getElementById("message").textContent="We couldn't load this quiz. Check the link and try again.";}
 }
-    
-    
-function finishQuiz() {
-    if (Object.keys(selectedAnswers).length !== quizData.length) {
-        alert("Please answer all 10 questions! 💕");
-        return;
-    }
-
-    document.getElementById("result").textContent =
-        "You completed all 10 questions! 💗 Thanks for playing KnowMe! 🎉";
-
-    document.getElementById("result").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
+async function startQuiz(){
+ const name=document.getElementById("name").value.trim();if(!name){alert("Please enter your name first! 💗");return;}
+ if(!activeQuizId && new URLSearchParams(location.search).has("quiz")){document.getElementById("message").textContent="Please wait while the quiz loads.";return;}
+ setCard("quiz");document.getElementById("welcome").textContent="Hey "+name+"! 💖";selectedAnswers={};document.getElementById("result").textContent="";showQuestions();document.getElementById("quiz").scrollIntoView({behavior:"smooth",block:"start"});
 }
+function showQuestions(){
+ const c=document.getElementById("questions");c.innerHTML="";
+ quizData.forEach((item,i)=>{const div=document.createElement("div");div.className="question";const h=document.createElement("h3");h.textContent=(i+1)+". "+item.question;div.appendChild(h);item.options.forEach((op,j)=>{const label=document.createElement("label");label.className="option";const r=document.createElement("input");r.type="radio";r.name="question"+i;r.value=j;r.addEventListener("change",()=>{selectedAnswers[i]=j;div.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));label.classList.add("selected");});label.append(r,document.createTextNode(" "+op));div.appendChild(label);});c.appendChild(div);});
+}
+async function finishQuiz(){
+ if(Object.keys(selectedAnswers).length!==quizData.length){alert("Please answer all "+quizData.length+" questions! 💕");return;}
+ if(!activeQuizId){document.getElementById("result").textContent="This is the sample quiz. Create a quiz using Supabase to enable online scoring.";return;}
+ const btn=document.getElementById("finishButton");btn.disabled=true;
+ try{
+  const {data:answerRows,error}=await db.from("quiz_questions").select("question_order,correct_answer").eq("quiz_id",activeQuizId);if(error)throw error;
+  let score=0;answerRows.forEach((row,i)=>{if(Number(selectedAnswers[row.question_order-1])===Number(row.correct_answer))score++;});
+  const playerName=document.getElementById("name").value.trim();
+  const {error:saveError}=await db.from("quiz_results").insert({quiz_id:activeQuizId,player_name:playerName,score:score,total_questions:quizData.length});if(saveError)throw saveError;
+  document.getElementById("result").textContent="You scored "+score+" / "+quizData.length+"! 💗 Your score has been saved.";
+ }catch(e){console.error(e);document.getElementById("result").textContent="Could not save/show your score. Check database permissions. "+(e.message||"");}
+ finally{btn.disabled=false;}
+}
+async function openResults(){
+ if(!db||!activeQuizId){alert("Create and save a quiz first.");return;}
+ try{const {data,error}=await db.from("quiz_results").select("player_name,score,total_questions,created_at").eq("quiz_id",activeQuizId).order("created_at",{ascending:false});if(error)throw error;setCard("resultsCard");document.getElementById("resultsIntro").textContent="Scores for "+activeQuiz.creator_name+"'s quiz";const box=document.getElementById("resultsList");box.innerHTML="";if(!data.length){box.textContent="No scores yet. Share your quiz link!";return;}data.forEach(r=>{const p=document.createElement("p");p.textContent=r.player_name+" — "+r.score+"/"+r.total_questions+" 🏆";box.appendChild(p);});}catch(e){alert("Could not load scores: "+(e.message||"Unknown error"));}
+}
+async function init(){
+ const code=new URLSearchParams(location.search).get("quiz");
+ if(code){await loadSharedQuiz(code);}
+}
+init();
 </script>
-
 </body>
 </html>
