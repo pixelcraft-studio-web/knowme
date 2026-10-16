@@ -386,12 +386,18 @@ function showCreateQuiz() {
     }
 
     document.getElementById("createQuiz").innerHTML = `
-        <h2>${title}</h2>
+        <h2>Add Your Questions 💗</h2>
         <p>Created by ${creator} 🎀</p>
-        <p>Your quiz setup has started! 💕</p>
-        <button type="button" onclick="location.reload()">
-            Back to Home
-        </button>
+
+        <input type="text" id="customQuestion" placeholder="Enter your question">
+        <input type="text" id="option1" placeholder="Option 1">
+        <input type="text" id="option2" placeholder="Option 2">
+        <input type="text" id="option3" placeholder="Option 3">
+        <input type="text" id="option4" placeholder="Option 4">
+
+        <button type="button" onclick="addQuestion()">Add Question ➕</button>
+
+        <div id="addedQuestions"></div>
     `;
     }
     let customQuestions = [];
