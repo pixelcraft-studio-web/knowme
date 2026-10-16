@@ -380,7 +380,7 @@ function showCreateQuiz() {
     const creator = document.getElementById("creatorName").value.trim();
     const title = document.getElementById("quizTitle").value.trim();
 
-    if (!creator || !title) {
+if (!creator) {
         alert("Please enter your name and quiz title! 💗");
         return;
     }
